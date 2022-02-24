@@ -7,6 +7,6 @@ User Can Access Website
     [Documentation]    test info
     [Tags]  Test 1
     Open Browser  about:blank  chrome
-    Go To  https//www.mediamarkt.se
-    Wait Until Page Contains  Om Mediamarkt
+    Go To  https://www.mediamarkt.se
+    Wait Until Page Contains  Om MediaMarkt
     Close Browser
