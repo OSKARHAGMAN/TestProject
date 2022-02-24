@@ -1,3 +1,6 @@
+*** Settings ***
+Library   ../Scripts/remove_parenthesis.py
+
 *** Variables ***
 ${BROWSER}  chrome
 ${URL}  https://www.mediamarkt.se
@@ -16,10 +19,10 @@ Verify Page Loaded
     Wait Until Page Contains  Om MediaMarkt
 
 Search For Product
-    [Arguments]  ${Search-Term}  ${Search-Result}
+    [Arguments]  ${Search-Term}
     Enter Search Term  ${Search-Term}
     Submit Search
-    Verify Search Completed  ${Search-Result}
+    Verify Search Completed
 
 Enter Search Term
     [Arguments]  ${Search-Term}
@@ -28,8 +31,10 @@ Submit Search
     Press Keys   //*[@id="search-autocomplete"]/form/input[1]  RETURN
 
 Verify Search Completed
-    [Arguments]  ${Search-Result}
-    Wait Until Page Contains   ${Search-Result}
+    Wait Until Page Contains Element  //*[@id="category"]/hgroup/h1/em
+    ${Element-Text}  Get Text  //*[@id="category"]/hgroup/h1/em
+    ${Actual-Amount}  convert_into_number  ${Element-Text}
+    Should Be True  ${Actual-Amount}  >0
 
 End Test
     Close Browser
